@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>JustHitRecord — Video Editing & Facebook Ads for Small Businesses Worldwide</title>
+<meta name="description" content="You film it on your phone. We edit it and run your Facebook Ads. Real leads, real customers — across Australia, UK, NZ, USA and beyond."/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#0d0f0e;--paper:#f7f4ee;--mist:#e8e4db;
+  --red:#e8311a;--red-dk:#c02610;--gold:#d4a843;
+  --white:#ffffff;--mid:#1c1f1d;--muted:#6b6f6c;
+  --border:rgba(13,15,14,0.1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--paper);color:var(--ink);font-family:'Instrument Sans',sans-serif;line-height:1.6;overflow-x:hidden;width:100%;max-width:100vw;}
+
+/* CURSOR - desktop only */
+@media(hover:hover){
+body{cursor:none;}
+a,button,select,input,textarea{cursor:none;}
+#cur{position:fixed;width:12px;height:12px;background:var(–red);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);mix-blend-mode:multiply;transition:width .2s,height .2s;display:block;}
+#cur-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(–red);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);opacity:.35;transition:width .12s,height .12s,opacity .12s;display:block;}
+body:has(a:hover) #cur,body:has(button:hover) #cur{width:20px;height:20px;}
+body:has(a:hover) #cur-ring,body:has(button:hover) #cur-ring{width:54px;height:54px;opacity:.15;}
+}
+#cur,#cur-ring{display:none;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;width:100%;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1rem 5vw;background:rgba(247,244,238,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(–border);transition:padding .3s,box-shadow .3s;}
+nav.scrolled{padding:.7rem 5vw;box-shadow:0 2px 20px rgba(0,0,0,.07);}
+.logo{display:flex;align-items:center;gap:.55rem;font-family:‘Syne’,sans-serif;font-size:1.15rem;font-weight:800;letter-spacing:-.02em;text-decoration:none;color:var(–ink);}
+.logo-rec{width:28px;height:28px;background:var(–red);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;}
+.logo-rec::before{content:’’;width:10px;height:10px;background:#fff;border-radius:50%;animation:logoblink 1.8s ease-in-out infinite;}
+@keyframes logoblink{0%,100%{opacity:1;}50%{opacity:.25;}}
+.logo span{color:var(–red);}
+.nav-links{list-style:none;display:flex;align-items:center;gap:2rem;}
+.nav-links a{text-decoration:none;color:var(–muted);font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(–ink);}
+.nav-cta{background:var(–ink)!important;color:var(–paper)!important;padding:.52rem 1.4rem;border-radius:100px;font-size:.8rem!important;font-weight:700!important;transition:background .2s!important;}
+.nav-cta:hover{background:var(–red)!important;}
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;cursor:pointer;}
+.ham span{width:22px;height:2px;background:var(–ink);border-radius:2px;}
+
+/* MOBILE NAV */
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:590;opacity:0;transition:opacity .3s;}
+.mob-overlay.open{opacity:1;}
+.mob-nav{display:none;position:fixed;top:0;right:0;width:80%;max-width:300px;height:100vh;background:var(–white);z-index:600;padding:5rem 2rem 2rem;transform:translateX(100%);transition:transform .35s ease;flex-direction:column;gap:1.2rem;border-left:1px solid var(–border);}
+.mob-nav.open{transform:translateX(0);}
+.mob-nav a{font-family:‘Syne’,sans-serif;font-size:1.05rem;font-weight:700;text-decoration:none;color:var(–ink);padding:.5rem 0;border-bottom:1px solid var(–border);display:block;}
+.mob-nav .mob-cta{margin-top:1rem;background:var(–red);color:#fff!important;padding:.9rem 1.5rem;border-radius:100px;text-align:center;border:none;display:block;}
+.mob-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;font-size:1.4rem;color:var(–muted);cursor:pointer;}
+
+/* HERO */
+.hero{min-height:100vh;width:100%;padding:8rem 5vw 5rem;position:relative;overflow:hidden;display:flex;align-items:center;}
+.hero-content{width:100%;max-width:700px;}
+.hero-glow{position:absolute;top:-10%;right:-5%;width:60vw;height:60vw;max-width:600px;background:radial-gradient(circle,rgba(232,49,26,.1) 0%,transparent 65%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(–white);border:1px solid var(–border);border-radius:100px;padding:.35rem 1rem .35rem .5rem;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(–muted);margin-bottom:1.8rem;box-shadow:0 2px 14px rgba(0,0,0,.06);opacity:0;animation:up .6s ease .1s forwards;}
+.bp{width:22px;height:22px;background:var(–red);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;}
+.bp::after{content:’’;position:absolute;width:100%;height:100%;border-radius:50%;background:var(–red);opacity:.4;animation:pulse 1.8s ease-in-out infinite;}
+.bp svg{width:8px;height:8px;fill:#fff;position:relative;z-index:1;}
+@keyframes pulse{0%{transform:scale(1);opacity:.4;}100%{transform:scale(2.4);opacity:0;}}
+h1{font-family:‘Syne’,sans-serif;font-size:clamp(2.8rem,8vw,5.2rem);font-weight:800;line-height:.97;letter-spacing:-.03em;margin-bottom:1.6rem;opacity:0;animation:up .7s ease .25s forwards;}
+h1 em{font-style:normal;color:var(–red);}
+h1 .outline{-webkit-text-stroke:2.5px var(–ink);color:transparent;}
+.hero-sub{font-size:clamp(.95rem,2.5vw,1.05rem);color:var(–muted);max-width:520px;line-height:1.8;margin-bottom:2.2rem;opacity:0;animation:up .7s ease .4s forwards;}
+.hero-sub strong{color:var(–ink);font-weight:600;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;opacity:0;animation:up .7s ease .55s forwards;}
+.btn-red{background:var(–red);color:#fff;padding:.9rem 1.8rem;border-radius:100px;font-family:‘Instrument Sans’,sans-serif;font-weight:700;font-size:.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 4px 20px rgba(232,49,26,.3);transition:background .2s,transform .2s;}
+.btn-red:hover{background:var(–red-dk);transform:translateY(-2px);}
+.btn-ghost{color:var(–ink);font-weight:600;font-size:.9rem;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;padding:.9rem 0;border-bottom:2px solid var(–ink);transition:color .2s,border-color .2s;}
+.btn-ghost:hover{color:var(–red);border-color:var(–red);}
+.hero-proof{display:flex;align-items:center;gap:1.2rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(–border);opacity:0;animation:up .7s ease .7s forwards;flex-wrap:wrap;}
+.faces{display:flex;}
+.face{width:34px;height:34px;border-radius:50%;border:2.5px solid var(–paper);background:var(–mist);margin-left:-9px;display:flex;align-items:center;justify-content:center;font-size:.9rem;}
+.face:first-child{margin-left:0;}
+.proof-stars{color:var(–gold);font-size:.85rem;}
+.proof-txt{font-size:.8rem;color:var(–muted);line-height:1.4;}
+.proof-txt strong{color:var(–ink);display:block;font-size:.84rem;}
+@keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* TICKER */
+.ticker{background:var(–ink);overflow:hidden;padding:.8rem 0;white-space:nowrap;width:100%;}
+.tk{display:inline-block;animation:tk 30s linear infinite;}
+.tk span{font-family:‘Syne’,sans-serif;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,244,238,.4);margin:0 2rem;}
+.tk span.ac{color:var(–red);}
+@keyframes tk{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SECTIONS */
+section{padding:5rem 5vw;width:100%;}
+.tag{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(–red);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+.tag::before{content:’’;width:18px;height:2px;background:var(–red);}
+h2{font-family:‘Syne’,sans-serif;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:800;letter-spacing:-.025em;line-height:1.05;margin-bottom:1rem;}
+.intro{font-size:.95rem;color:var(–muted);max-width:520px;line-height:1.8;margin-bottom:3rem;}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;}
+.rv.on{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}
+
+/* HOW */
+.how{background:var(–white);}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(–border);border-radius:16px;overflow:hidden;margin-top:2.5rem;}
+.step{padding:2rem 1.5rem;border-right:1px solid var(–border);position:relative;transition:background .3s;background:var(–white);}
+.step:last-child{border-right:none;}
+.step:hover{background:var(–paper);}
+.sn{font-family:‘Syne’,sans-serif;font-size:3rem;font-weight:800;color:rgba(13,15,14,.05);line-height:1;margin-bottom:.8rem;}
+.si{width:44px;height:44px;background:var(–paper);border-radius:12px;border:1px solid var(–border);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem;}
+.step h3{font-family:‘Syne’,sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;}
+.step p{font-size:.82rem;color:var(–muted);line-height:1.7;}
+.step-arr{position:absolute;top:50%;right:-14px;width:28px;height:28px;background:var(–red);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2;transform:translateY(-50%);}
+.step-arr svg{width:10px;height:10px;fill:#fff;}
+.step:last-child .step-arr{display:none;}
+
+/* FOUNDER */
+.founder{background:var(–paper);}
+.founder-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;align-items:center;margin-top:2.5rem;}
+.founder-photo{position:relative;}
+.founder-img{width:100%;aspect-ratio:3/4;border-radius:20px;object-fit:cover;background:var(–mist);display:flex;align-items:center;justify-content:center;font-size:4rem;border:1px solid var(–border);overflow:hidden;}
+.founder-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-placeholder{width:100%;aspect-ratio:3/4;border-radius:20px;background:var(–mist);border:2px dashed rgba(13,15,14,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;color:var(–muted);font-size:.85rem;text-align:center;padding:2rem;}
+.photo-placeholder span{font-size:2.5rem;}
+.founder-badge{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);background:var(–red);color:#fff;font-family:‘Syne’,sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.06em;padding:.5rem 1.2rem;border-radius:100px;white-space:nowrap;}
+.founder-text h3{font-family:‘Syne’,sans-serif;font-size:1.8rem;font-weight:800;letter-spacing:-.02em;margin-bottom:1rem;}
+.founder-text p{font-size:.9rem;color:var(–muted);line-height:1.85;margin-bottom:1rem;}
+.founder-facts{list-style:none;margin-top:1.5rem;}
+.founder-facts li{font-size:.85rem;color:var(–ink);padding:.55rem 0;border-bottom:1px solid var(–border);display:flex;align-items:center;gap:.7rem;}
+.founder-facts li span{color:var(–red);font-weight:700;}
+
+/* SERVICES */
+.services{background:var(–ink);}
+.services .tag{color:var(–gold);}
+.services .tag::before{background:var(–gold);}
+.services h2{color:var(–paper);}
+.services .intro{color:rgba(247,244,238,.45);}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:16px;overflow:hidden;}
+.srv{background:var(–ink);padding:2rem 1.8rem;transition:background .3s;position:relative;overflow:hidden;}
+.srv::after{content:’’;position:absolute;bottom:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(–red),var(–gold));transform:scaleX(0);transform-origin:left;transition:transform .4s ease;}
+.srv:hover{background:var(–mid);}
+.srv:hover::after{transform:scaleX(1);}
+.srv-ico{font-size:1.8rem;margin-bottom:1rem;}
+.srv h3{font-family:‘Syne’,sans-serif;font-size:1rem;font-weight:700;color:var(–paper);margin-bottom:.5rem;}
+.srv p{font-size:.82rem;color:rgba(247,244,238,.4);line-height:1.7;}
+.srv-badge{display:inline-block;margin-top:1rem;font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(–gold);border:1px solid rgba(212,168,67,.3);padding:.2rem .7rem;border-radius:100px;}
+
+/* WORK SAMPLES */
+.work{background:var(–white);}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem;}
+.work-item{border-radius:16px;overflow:hidden;aspect-ratio:9/16;position:relative;background:var(–mist);border:1px solid var(–border);}
+.work-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.work-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;color:var(–muted);font-size:.8rem;text-align:center;padding:1rem;background:var(–mist);border:2px dashed rgba(13,15,14,.12);}
+.work-placeholder span{font-size:2rem;}
+.work-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));color:#fff;padding:1.5rem 1rem .8rem;font-size:.78rem;font-weight:600;}
+
+/* NICHES */
+.niches{background:var(–paper);}
+.pills{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2rem;}
+.pill{background:var(–white);border:1.5px solid var(–border);border-radius:100px;padding:.55rem 1.1rem;font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:.4rem;transition:all .2s;}
+.pill:hover{background:var(–red);color:#fff;border-color:var(–red);transform:translateY(-2px);}
+.pill em{font-style:normal;opacity:.4;font-size:.74rem;}
+.niche-note{margin-top:1.8rem;font-size:.84rem;color:var(–muted);font-style:italic;padding-left:1rem;border-left:3px solid var(–red);}
+
+/* RESULTS */
+.results{background:var(–red);}
+.results .tag{color:rgba(255,255,255,.7);}
+.results .tag::before{background:rgba(255,255,255,.7);}
+.results h2{color:#fff;}
+.rg{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:2.5rem;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.18);border-radius:16px;overflow:hidden;}
+.rs{background:rgba(255,255,255,.08);padding:2rem 1.5rem;text-align:center;transition:background .2s;}
+.rs:hover{background:rgba(255,255,255,.15);}
+.rs-num{font-family:‘Syne’,sans-serif;font-size:3rem;font-weight:800;color:#fff;line-height:1;}
+.rs-lbl{font-size:.76rem;color:rgba(255,255,255,.65);margin-top:.4rem;font-weight:500;}
+
+/* TESTIMONIALS */
+.testimonials{background:var(–paper);}
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem;}
+.tc{background:var(–white);border:1px solid var(–border);border-radius:16px;padding:1.8rem;transition:transform .25s,box-shadow .25s;position:relative;}
+.tc:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08);}
+.tc::before{content:’”’;font-family:‘Syne’,sans-serif;font-size:5rem;line-height:.8;color:rgba(232,49,26,.07);position:absolute;top:1rem;right:1.2rem;pointer-events:none;}
+.stars{color:var(–gold);font-size:.85rem;margin-bottom:.8rem;}
+.tq{font-size:.86rem;color:var(–ink);line-height:1.8;font-style:italic;padding-left:1rem;border-left:3px solid var(–red);}
+.ta{margin-top:1.2rem;display:flex;align-items:center;gap:.8rem;padding-top:1rem;border-top:1px solid var(–border);}
+.av{width:36px;height:36px;border-radius:50%;background:var(–mist);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.9rem;border:2px solid var(–border);}
+.an{font-weight:700;font-size:.82rem;color:var(–ink);}
+.al{font-size:.72rem;color:var(–muted);}
+
+/* PRICING */
+.pricing{background:var(–white);}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem;align-items:start;}
+.pc{border:1.5px solid var(–border);border-radius:20px;padding:2rem 1.8rem;transition:transform .25s,box-shadow .25s;background:var(–white);}
+.pc:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.07);}
+.pc.hot{border-color:var(–red);background:var(–ink);position:relative;}
+.hot-lbl{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(–red);color:#fff;font-size:.64rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .9rem;border-radius:100px;white-space:nowrap;}
+.pc h3{font-family:‘Syne’,sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.4rem;}
+.pc.hot h3{color:var(–paper);}
+.p-amt{font-family:‘Syne’,sans-serif;font-size:2.4rem;font-weight:800;line-height:1;margin:.8rem 0 .2rem;color:var(–ink);display:flex;align-items:flex-end;gap:.2rem;}
+.pc.hot .p-amt{color:var(–paper);}
+.p-amt sup{font-size:1rem;margin-bottom:.3rem;}
+.p-cur{font-size:.7rem;font-weight:700;color:var(–muted);margin-bottom:.2rem;letter-spacing:.04em;}
+.pc.hot .p-cur{color:rgba(247,244,238,.4);}
+.p-per{font-size:.76rem;color:var(–muted);margin-bottom:1rem;}
+.pc.hot .p-per{color:rgba(247,244,238,.4);}
+.p-note{font-size:.72rem;color:var(–muted);background:var(–paper);border-radius:8px;padding:.4rem .7rem;margin-bottom:1.2rem;border:1px solid var(–border);}
+.pc.hot .p-note{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.08);color:rgba(247,244,238,.4);}
+.p-list{list-style:none;margin-bottom:1.5rem;}
+.p-list li{font-size:.82rem;color:var(–muted);padding:.45rem 0;border-bottom:1px solid var(–border);display:flex;align-items:flex-start;gap:.6rem;}
+.pc.hot .p-list li{color:rgba(247,244,238,.6);border-color:rgba(255,255,255,.07);}
+.p-list li::before{content:‘✓’;color:var(–red);font-weight:700;font-size:.76rem;flex-shrink:0;margin-top:.1rem;}
+.p-btn{display:block;width:100%;text-align:center;padding:.85rem;border-radius:100px;font-weight:700;font-size:.88rem;text-decoration:none;transition:all .2s;border:none;cursor:pointer;}
+.pc:not(.hot) .p-btn{background:var(–paper);color:var(–ink);border:1.5px solid var(–border);}
+.pc:not(.hot) .p-btn:hover{background:var(–ink);color:var(–paper);}
+.pc.hot .p-btn{background:var(–red);color:#fff;}
+.pc.hot .p-btn:hover{background:var(–red-dk);}
+.p-foot{text-align:center;margin-top:1.5rem;font-size:.78rem;color:var(–muted);}
+.p-foot span{color:var(–red);font-weight:600;}
+
+/* FAQ */
+.faq{background:var(–paper);}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(–border);border:1px solid var(–border);border-radius:16px;overflow:hidden;margin-top:2.5rem;}
+.fi{background:var(–white);}
+.fq{padding:1.2rem 1.6rem;font-family:‘Syne’,sans-serif;font-size:.88rem;font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:1rem;cursor:pointer;transition:color .2s;}
+.fq:hover{color:var(–red);}
+.fi-ico{width:26px;height:26px;flex-shrink:0;background:var(–paper);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:300;border:1px solid var(–border);transition:transform .3s,background .2s,color .2s;}
+.fa{max-height:0;overflow:hidden;font-size:.84rem;color:var(–muted);line-height:1.8;padding:0 1.6rem;transition:max-height .4s ease,padding .3s;}
+.fi.open .fa{max-height:220px;padding:0 1.6rem 1.2rem;}
+.fi.open .fi-ico{transform:rotate(45deg);background:var(–red);color:#fff;border-color:var(–red);}
+
+/* COUNTRIES */
+.countries{background:var(–ink);text-align:center;}
+.countries .tag{color:var(–gold);justify-content:center;}
+.countries .tag::before{background:var(–gold);}
+.countries h2{color:var(–paper);}
+.countries .intro{color:rgba(247,244,238,.4);margin:0 auto;text-align:center;}
+.flags{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin-top:2.5rem;}
+.flag{background:var(–mid);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:1.5rem 2rem;min-width:120px;text-align:center;transition:border-color .2s,transform .25s;}
+.flag:hover{border-color:var(–red);transform:translateY(-4px);}
+.f-em{font-size:2rem;display:block;margin-bottom:.5rem;}
+.f-name{font-family:‘Syne’,sans-serif;font-size:.82rem;font-weight:700;color:var(–paper);}
+.f-tz{font-size:.68rem;color:rgba(247,244,238,.3);margin-top:.15rem;}
+
+/* CTA BANNER */
+.cta-sec{background:var(–paper);padding:5rem 5vw;}
+.cta-inner{background:var(–ink);border-radius:24px;padding:5rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.cta-inner::before{content:’’;position:absolute;top:-40%;left:-10%;width:65%;height:180%;background:radial-gradient(ellipse,rgba(232,49,26,.18) 0%,transparent 65%);pointer-events:none;}
+.cta-inner::after{content:’’;position:absolute;bottom:-40%;right:-5%;width:50%;height:130%;background:radial-gradient(ellipse,rgba(212,168,67,.1) 0%,transparent 65%);pointer-events:none;}
+.cta-inner h2{font-size:clamp(2rem,5vw,3.8rem);color:var(–paper);position:relative;z-index:1;}
+.cta-inner p{font-size:.95rem;color:rgba(247,244,238,.5);max-width:440px;margin:1rem auto 2rem;line-height:1.8;position:relative;z-index:1;}
+
+/* CONTACT */
+.contact{background:var(–white);}
+.cw{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:start;margin-top:2.5rem;}
+.ci h3{font-family:‘Syne’,sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-.02em;margin-bottom:1rem;}
+.ci p{font-size:.88rem;color:var(–muted);line-height:1.8;margin-bottom:1.5rem;}
+.promises{list-style:none;}
+.promises li{font-size:.84rem;color:var(–ink);padding:.6rem 0;border-bottom:1px solid var(–border);display:flex;align-items:flex-start;gap:.7rem;}
+.promises li span{color:var(–red);font-weight:700;flex-shrink:0;}
+.fg{margin-bottom:.9rem;}
+.fg label{display:block;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(–muted);margin-bottom:.35rem;}
+.fg input,.fg select,.fg textarea{width:100%;background:var(–paper);border:1.5px solid var(–border);color:var(–ink);font-family:‘Instrument Sans’,sans-serif;font-size:.95rem;padding:.78rem 1rem;border-radius:10px;outline:none;appearance:none;transition:border-color .2s,box-shadow .2s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(–red);box-shadow:0 0 0 3px rgba(232,49,26,.1);}
+.fg textarea{min-height:90px;resize:vertical;}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+.f-submit{width:100%;background:var(–red);color:#fff;border:none;font-family:‘Syne’,sans-serif;font-size:1rem;font-weight:700;padding:1rem;border-radius:100px;box-shadow:0 4px 20px rgba(232,49,26,.3);transition:background .2s,transform .2s;cursor:pointer;}
+.f-submit:hover{background:var(–red-dk);transform:translateY(-2px);}
+.f-note{text-align:center;font-size:.72rem;color:var(–muted);margin-top:.7rem;}
+
+/* FOOTER */
+footer{background:var(–ink);padding:3rem 5vw 2rem;}
+.ft{display:flex;align-items:center;justify-content:space-between;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,.07);flex-wrap:wrap;gap:1.2rem;}
+.fl{display:flex;align-items:center;gap:.55rem;font-family:‘Syne’,sans-serif;font-size:1.1rem;font-weight:800;color:var(–paper);text-decoration:none;}
+.fl .logo-rec{width:24px;height:24px;}
+.fnav{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.fnav a{font-size:.76rem;color:rgba(247,244,238,.35);text-decoration:none;font-weight:500;transition:color .2s;}
+.fnav a:hover{color:var(–paper);}
+.fb{display:flex;align-items:center;justify-content:space-between;padding-top:1.2rem;flex-wrap:wrap;gap:.8rem;}
+.fb p{font-size:.72rem;color:rgba(247,244,238,.25);}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+.steps{grid-template-columns:1fr 1fr;}
+.step:nth-child(2){border-right:none;}
+.step:nth-child(3){border-top:1px solid var(–border);border-right:1px solid var(–border);}
+.step:nth-child(4){border-top:1px solid var(–border);}
+.step-arr{display:none;}
+.founder-inner{grid-template-columns:1fr;}
+.founder-photo{max-width:280px;margin:0 auto;}
+.faq-grid{grid-template-columns:1fr;}
+.srv-grid{grid-template-columns:1fr 1fr;}
+.rg{grid-template-columns:1fr 1fr;}
+.tg{grid-template-columns:1fr;}
+.pg{grid-template-columns:1fr;}
+.cw{grid-template-columns:1fr;gap:2.5rem;}
+.cta-inner{padding:3rem 2rem;}
+.nav-links{display:none;}
+.ham{display:flex;}
+.mob-nav{display:flex;}
+.mob-overlay{display:block;}
+.fg-row{grid-template-columns:1fr;}
+.work-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:560px){
+.steps{grid-template-columns:1fr;}
+.step{border-right:none!important;border-bottom:1px solid var(–border);}
+.srv-grid{grid-template-columns:1fr;}
+.rg{grid-template-columns:1fr 1fr;}
+.work-grid{grid-template-columns:1fr;}
+h1{font-size:2.6rem;}
+section{padding:4rem 5vw;}
+.hero{padding:7rem 5vw 4rem;}
+.flags{gap:.7rem;}
+.flag{padding:1.2rem 1.5rem;min-width:100px;}
+}
+</style>
+
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- MOBILE -->
+
+<div class="mob-overlay" id="overlay"></div>
+<nav class="mob-nav" id="mobileNav">
+  <button class="mob-close" id="closeNav">✕</button>
+  <a href="#how">How It Works</a>
+  <a href="#services">Services</a>
+  <a href="#founder">About Me</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#faq">FAQ</a>
+  <a href="#contact" class="mob-cta">Book Free Call →</a>
+</nav>
+
+<!-- NAV -->
+
+<nav id="navbar">
+  <a href="#" class="logo">
+    <div class="logo-rec"></div>
+    Just<span>Hit</span>Record
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#founder">About Me</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-cta">Book Free Call</a></li>
+  </ul>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="bp"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4"/></svg></div>
+      Now serving AU · UK · NZ · US · CA &amp; more
+    </div>
+    <h1>You Film.<br/>We <em>Edit.</em><br/>You Get <span class="outline">Customers.</span></h1>
+    <p class="hero-sub">Just hit record on your phone. We transform your raw footage into <strong>professional video ads</strong> and run targeted <strong>Facebook campaigns</strong> that bring real customers to your business — for around $40/day in ad spend.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-red"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Book My Free Strategy Call</a>
+      <a href="#how" class="btn-ghost">See How It Works ↓</a>
+    </div>
+    <div class="hero-proof">
+      <div class="faces">
+        <div class="face">🧑</div><div class="face">👩</div><div class="face">👨</div><div class="face">🧑</div><div class="face">👩</div>
+      </div>
+      <div>
+        <div class="proof-stars">★★★★★</div>
+        <div class="proof-txt"><strong>Trusted by 100+ small businesses</strong>across AU, UK, NZ, USA &amp; Canada</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+
+<div class="ticker"><div class="tk">
+  <span class="ac">You Film It</span><span>We Edit It</span><span class="ac">Facebook Ads</span><span>Lead Generation</span><span>Australia</span><span>United Kingdom</span><span>New Zealand</span><span>United States</span><span class="ac">~$40/day Ad Spend</span><span>No Camera Crew</span><span>Worldwide</span><span class="ac">Real Results</span>
+  <span class="ac">You Film It</span><span>We Edit It</span><span class="ac">Facebook Ads</span><span>Lead Generation</span><span>Australia</span><span>United Kingdom</span><span>New Zealand</span><span>United States</span><span class="ac">~$40/day Ad Spend</span><span>No Camera Crew</span><span>Worldwide</span><span class="ac">Real Results</span>
+</div></div>
+
+<!-- HOW IT WORKS -->
+
+<section class="how" id="how">
+  <div class="tag">The Process</div>
+  <h2>Simple as 1, 2, 3, 4</h2>
+  <p class="intro">No agency jargon. No complicated setups. Here's exactly what happens from your first conversation to your first lead.</p>
+  <div class="steps">
+    <div class="step rv"><div class="sn">01</div><div class="si">📞</div><h3>We Have a Quick Chat</h3><p>Free 20-min call. We learn your business, ideal customer, and what makes you stand out locally.</p><div class="step-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+    <div class="step rv d1"><div class="sn">02</div><div class="si">📱</div><h3>You Film on Your Phone</h3><p>We give you a simple shot list. You record short clips — your work, space, people. Zero experience needed.</p><div class="step-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+    <div class="step rv d2"><div class="sn">03</div><div class="si">✂️</div><h3>We Edit &amp; Polish It</h3><p>We turn raw footage into scroll-stopping video ads — cuts, captions, hooks, music, colour grade. Done for you.</p><div class="step-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+    <div class="step rv d3"><div class="sn">04</div><div class="si">📲</div><h3>Leads Hit Your Phone</h3><p>We launch Facebook Ads targeting your exact local area. Real enquiries start landing within 48 hours.</p></div>
+  </div>
+</section>
+
+<!-- MEET THE FOUNDER -->
+
+<section class="founder" id="founder">
+  <div class="tag">Meet the Founder</div>
+  <h2>The Person Behind the Business</h2>
+  <div class="founder-inner">
+    <div class="founder-photo rv">
+      <!-- TO ADD YOUR PHOTO: Replace the div below with: <img src="YOUR-PHOTO-URL" alt="Founder photo"/> -->
+      <div class="photo-placeholder">
+        <span>📸</span>
+        <strong>Your Photo Here</strong>
+        Upload your photo to GitHub and paste the link here
+      </div>
+      <div class="founder-badge">Founder &amp; CEO</div>
+    </div>
+    <div class="founder-text rv d1">
+      <h3>Hi, I'm the founder of JustHitRecord.</h3>
+      <p>I started this business because I saw how many incredible small businesses were being left behind online — not because they lacked great products or services, but because they didn't have the time or knowledge to market themselves properly.</p>
+      <p>My model is simple: <strong>you just film on your phone</strong>, and I handle everything else — the editing, the ads, the strategy. You focus on running your business while I focus on filling your pipeline with real customers.</p>
+      <p>I work 100% remotely, serving businesses across Australia, the UK, New Zealand, the USA and beyond. Wherever you are, if you want more customers — I can help.</p>
+      <ul class="founder-facts">
+        <li><span>✓</span> 100% remote — work with me from anywhere in the world</li>
+        <li><span>✓</span> Specialised in Facebook Ads &amp; video editing</li>
+        <li><span>✓</span> No lock-in contracts — results speak for themselves</li>
+        <li><span>✓</span> Fast turnaround — first leads within 48hrs of launch</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+
+<section class="services" id="services">
+  <div class="tag">What We Do</div>
+  <h2>Everything Handled For You</h2>
+  <p class="intro">You run your business. We handle the video editing and the ads — end to end.</p>
+  <div class="srv-grid">
+    <div class="srv rv"><div class="srv-ico">✂️</div><h3>Professional Video Editing</h3><p>Send us raw clips, we return polished ad-ready videos — captions, music, hooks, colour grade, and branding included.</p><div class="srv-badge">Core service</div></div>
+    <div class="srv rv d1"><div class="srv-ico">📣</div><h3>Facebook &amp; Instagram Ads</h3><p>Full campaign setup, daily management, targeting, testing, and optimisation. Your ideal customers, your area, every day.</p><div class="srv-badge">Core service</div></div>
+    <div class="srv rv d2"><div class="srv-ico">🎯</div><h3>Shot List &amp; Direction</h3><p>We tell you exactly what to film and how — simple instructions so anyone on your team can capture great footage on a phone.</p><div class="srv-badge">Included</div></div>
+    <div class="srv rv d3"><div class="srv-ico">🧲</div><h3>Lead Capture Pages</h3><p>A clean, mobile-first page that catches interested customers and sends their details straight to you. No website required.</p><div class="srv-badge">Included</div></div>
+    <div class="srv rv d1"><div class="srv-ico">🔁</div><h3>Retargeting Campaigns</h3><p>We follow up with people who watched but didn't enquire. This warm audience converts at 3–5× the rate of cold traffic.</p><div class="srv-badge">Add-on</div></div>
+    <div class="srv rv d2"><div class="srv-ico">📊</div><h3>Monthly Results Reports</h3><p>Plain-English reports every month — leads in, cost per lead, what worked, what we're improving. No guesswork.</p><div class="srv-badge">Every month</div></div>
+  </div>
+</section>
+
+<!-- WORK SAMPLES -->
+
+<section class="work" id="work">
+  <div class="tag">Our Work</div>
+  <h2>Results We've Delivered</h2>
+  <p class="intro">Real videos made for real businesses. Upload your own results here as you build your portfolio.</p>
+  <div class="work-grid">
+    <div class="work-item rv">
+      <!-- TO ADD IMAGE: Replace div below with <img src="YOUR-IMAGE-URL" alt="Work sample"/> -->
+      <div class="work-placeholder"><span>🎬</span><strong>Add Work Sample</strong>Upload a video thumbnail or result screenshot</div>
+      <div class="work-label">Beauty Salon — Sydney, AU</div>
+    </div>
+    <div class="work-item rv d1">
+      <div class="work-placeholder"><span>🎬</span><strong>Add Work Sample</strong>Upload a video thumbnail or result screenshot</div>
+      <div class="work-label">Auto Detailing — Manchester, UK</div>
+    </div>
+    <div class="work-item rv d2">
+      <div class="work-placeholder"><span>🎬</span><strong>Add Work Sample</strong>Upload a video thumbnail or result screenshot</div>
+      <div class="work-label">Personal Training — Auckland, NZ</div>
+    </div>
+  </div>
+</section>
+
+<!-- NICHES -->
+
+<section class="niches" id="niches">
+  <div class="tag">Who We Help</div>
+  <h2>Built for Local &amp; Service Businesses</h2>
+  <p class="intro">If you serve customers in a local area and want a steady flow of new enquiries — this is built for you.</p>
+  <div class="pills">
+    <div class="pill rv">💆 Beauty Salons <em>— hair, nails, lashes</em></div>
+    <div class="pill rv d1">🦷 Dental Clinics</div>
+    <div class="pill rv d2">🏋️ Gyms &amp; Personal Trainers</div>
+    <div class="pill rv">🏡 Real Estate Agents</div>
+    <div class="pill rv d1">🔧 Trades &amp; Home Services</div>
+    <div class="pill rv d2">🍕 Restaurants &amp; Cafés</div>
+    <div class="pill rv">🚗 Auto Detailing</div>
+    <div class="pill rv d1">🐾 Pet Groomers &amp; Vets</div>
+    <div class="pill rv d2">📸 Photographers</div>
+    <div class="pill rv">🏥 Med Spas &amp; Clinics</div>
+    <div class="pill rv d1">🧹 Cleaning Services</div>
+    <div class="pill rv d2">⚖️ Lawyers &amp; Accountants</div>
+  </div>
+  <p class="niche-note">Don't see your industry? We work with any local or service-based business.</p>
+</section>
+
+<!-- RESULTS -->
+
+<section class="results" id="results">
+  <div class="tag">Proven Results</div>
+  <h2>Numbers That Speak</h2>
+  <div class="rg">
+    <div class="rs rv"><div class="rs-num">3.8×</div><div class="rs-lbl">Avg. return on ad spend</div></div>
+    <div class="rs rv d1"><div class="rs-num">$12</div><div class="rs-lbl">Avg. cost per qualified lead</div></div>
+    <div class="rs rv d2"><div class="rs-num">48hrs</div><div class="rs-lbl">Time to first leads</div></div>
+    <div class="rs rv d3"><div class="rs-num">87%</div><div class="rs-lbl">Client retention rate</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+
+<section class="testimonials" id="testimonials">
+  <div class="tag">Client Stories</div>
+  <h2>What Business Owners Say</h2>
+  <p class="intro">Real clients. Real results. No fluff.</p>
+  <div class="tg">
+    <div class="tc rv"><div class="stars">★★★★★</div><p class="tq">Within two weeks we had 34 new enquiries. The video they edited looked more professional than anything we'd ever put out. Completely worth every cent.</p><div class="ta"><div class="av">👩</div><div><div class="an">Sarah M.</div><div class="al">Glow Beauty Studio — Sydney, AU</div></div></div></div>
+    <div class="tc rv d1"><div class="stars">★★★★★</div><p class="tq">I'd wasted money on Facebook ads before. These guys actually know what they're doing. Our cost per lead dropped by more than half and the quality is way better.</p><div class="ta"><div class="av">👨</div><div><div class="an">Mike T.</div><div class="al">Premier Auto Detail — Manchester, UK</div></div></div></div>
+    <div class="tc rv d2"><div class="stars">★★★★★</div><p class="tq">I just filmed on my iPhone like they told me. A few days later I had a professional ad running and my phone hasn't stopped. Booked out 3 weeks ahead now.</p><div class="ta"><div class="av">🧑</div><div><div class="an">Jessica R.</div><div class="al">FitZone Training — Auckland, NZ</div></div></div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+
+<section class="pricing" id="pricing">
+  <div class="tag">Pricing</div>
+  <h2>Simple, Transparent Plans</h2>
+  <p class="intro">All prices in <strong>USD</strong>. Ad spend is paid by you directly to Facebook — we just manage it.</p>
+  <div class="pg">
+    <div class="pc rv">
+      <h3>Starter</h3>
+      <div class="p-amt"><sup>$</sup>497<span class="p-cur">USD</span></div>
+      <div class="p-per">per month + your ad spend</div>
+      <div class="p-note">💡 ~$40/day ad spend paid direct to Facebook</div>
+      <ul class="p-list"><li>1 video edited per month</li><li>Facebook Ads setup &amp; management</li><li>Shot list &amp; content direction</li><li>Lead capture page</li><li>Monthly results report</li></ul>
+      <a href="#contact" class="p-btn">Get Started</a>
+    </div>
+    <div class="pc hot rv d1">
+      <div class="hot-lbl">⭐ Most Popular</div>
+      <h3>Growth</h3>
+      <div class="p-amt"><sup>$</sup>897<span class="p-cur">USD</span></div>
+      <div class="p-per">per month + your ad spend</div>
+      <div class="p-note">💡 ~$40/day ad spend paid direct to Facebook</div>
+      <ul class="p-list"><li>3 videos edited per month</li><li>Facebook + Instagram Ads</li><li>Shot list &amp; content direction</li><li>Lead capture page</li><li>Retargeting campaigns</li><li>Priority support</li><li>Monthly results report</li></ul>
+      <a href="#contact" class="p-btn">Get Started</a>
+    </div>
+    <div class="pc rv d2">
+      <h3>Scale</h3>
+      <div class="p-amt"><sup>$</sup>1,497<span class="p-cur">USD</span></div>
+      <div class="p-per">per month + your ad spend</div>
+      <div class="p-note">💡 ~$40/day+ ad spend paid direct to Facebook</div>
+      <ul class="p-list"><li>6 videos edited per month</li><li>Facebook + Instagram + Reels</li><li>Full content strategy</li><li>Lead capture + follow-up</li><li>Retargeting &amp; lookalike audiences</li><li>Dedicated account manager</li><li>Weekly check-in call</li></ul>
+      <a href="#contact" class="p-btn">Get Started</a>
+    </div>
+  </div>
+  <p class="p-foot">Not sure which plan? <span>Book a free call</span> — we'll recommend the right one.<br/>AU, UK, NZ &amp; CA clients welcome — local currency confirmed on your call.</p>
+</section>
+
+<!-- FAQ -->
+
+<section class="faq" id="faq">
+  <div class="tag">FAQ</div>
+  <h2>Every Question Answered</h2>
+  <p class="intro">Everything you need to know before getting started.</p>
+  <div class="faq-grid">
+    <div class="fi rv"><div class="fq">Do I need any filming experience?<div class="fi-ico">+</div></div><div class="fa">None at all. We give you a simple shot list — what to film, how long each clip should be, and tips for good lighting. If you can hold a phone, you're qualified.</div></div>
+    <div class="fi rv d1"><div class="fq">What does the $40/day ad spend cover?<div class="fi-ico">+</div></div><div class="fa">The ~$40/day goes directly to Facebook/Meta to show your ads to local people matching your ideal customer. You pay Facebook directly — it's separate from our service fee.</div></div>
+    <div class="fi rv"><div class="fq">How quickly will I see results?<div class="fi-ico">+</div></div><div class="fa">Most clients see their first leads within 24–48 hours of launch. Results typically improve significantly from week 2 as we optimise the campaign.</div></div>
+    <div class="fi rv d1"><div class="fq">Do I need a website?<div class="fi-ico">+</div></div><div class="fa">No. We build a simple lead capture page as part of your setup — customers fill in their details and they come straight to you. No website required.</div></div>
+    <div class="fi rv"><div class="fq">What countries do you work with?<div class="fi-ico">+</div></div><div class="fa">We work fully remotely and currently serve businesses in Australia, the UK, New Zealand, the USA, Canada, and more. If Facebook Ads run in your country, we can help.</div></div>
+    <div class="fi rv d1"><div class="fq">Are there long-term contracts?<div class="fi-ico">+</div></div><div class="fa">No lock-in contracts. We work month-to-month. Our goal is results good enough that you'd never want to leave.</div></div>
+    <div class="fi rv"><div class="fq">What businesses do you work with?<div class="fi-ico">+</div></div><div class="fa">We specialise in local and service-based businesses — gyms, salons, trades, restaurants, clinics, real estate, and more. If you serve a local area, we can help.</div></div>
+    <div class="fi rv d1"><div class="fq">What if I'm not happy with results?<div class="fi-ico">+</div></div><div class="fa">We'll work with you until you are. We analyse what's not working, adjust the creative and targeting, and keep iterating. Your success is our business.</div></div>
+  </div>
+</section>
+
+<!-- COUNTRIES -->
+
+<section class="countries" id="countries">
+  <div class="tag">Where We Work</div>
+  <h2>We Work Everywhere You Do</h2>
+  <p class="intro">100% remote. No local presence needed. If Facebook Ads run in your country, we deliver results.</p>
+  <div class="flags">
+    <div class="flag rv"><span class="f-em">🇦🇺</span><div class="f-name">Australia</div><div class="f-tz">AEST / AEDT</div></div>
+    <div class="flag rv d1"><span class="f-em">🇬🇧</span><div class="f-name">United Kingdom</div><div class="f-tz">GMT / BST</div></div>
+    <div class="flag rv d2"><span class="f-em">🇳🇿</span><div class="f-name">New Zealand</div><div class="f-tz">NZST / NZDT</div></div>
+    <div class="flag rv d3"><span class="f-em">🇺🇸</span><div class="f-name">United States</div><div class="f-tz">Multiple zones</div></div>
+    <div class="flag rv d2"><span class="f-em">🇨🇦</span><div class="f-name">Canada</div><div class="f-tz">Multiple zones</div></div>
+    <div class="flag rv d3"><span class="f-em">🌍</span><div class="f-name">+ More</div><div class="f-tz">Just ask us</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+
+<section class="cta-sec">
+  <div class="cta-inner rv">
+    <h2>Ready to Start Getting Customers?</h2>
+    <p>Book a free 20-minute strategy call. We'll tell you exactly what we'd run — no jargon, no pressure, no obligation.</p>
+    <a href="#contact" class="btn-red" style="display:inline-flex;position:relative;z-index:1;"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Book My Free Call</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+  <div class="tag">Get Started</div>
+  <h2>Let's Talk About Your Business</h2>
+  <div class="cw">
+    <div class="ci rv">
+      <h3>What happens when you reach out?</h3>
+      <p>Fill in the form and we'll reply within a few hours to book your free strategy call. We review your business and give you a clear plan — even if you don't sign up.</p>
+      <ul class="promises">
+        <li><span>✓</span> Free 20-min strategy call, zero obligation</li>
+        <li><span>✓</span> We review your current online presence</li>
+        <li><span>✓</span> You get a clear action plan to keep</li>
+        <li><span>✓</span> You film on your phone — we do the rest</li>
+        <li><span>✓</span> First leads typically within 48hrs of launch</li>
+        <li><span>✓</span> No lock-in contracts to start</li>
+        <li><span>✓</span> Works in AU, UK, NZ, US, CA &amp; more</li>
+      </ul>
+    </div>
+    <form class="rv d1" action="https://formspree.io/f/xqenqplj" method="POST">
+      <div class="fg-row">
+        <div class="fg"><label>Your Name</label><input type="text" name="name" placeholder="Jane Smith" required/></div>
+        <div class="fg"><label>Business Name</label><input type="text" name="business" placeholder="Jane's Salon" required/></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Phone Number</label><input type="tel" name="phone" placeholder="+61 400 000 000"/></div>
+        <div class="fg"><label>Email Address</label><input type="email" name="email" placeholder="jane@yourbiz.com" required/></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Country</label><select name="country"><option value="">Select country...</option><option>🇦🇺 Australia</option><option>🇬🇧 United Kingdom</option><option>🇳🇿 New Zealand</option><option>🇺🇸 United States</option><option>🇨🇦 Canada</option><option>Other</option></select></div>
+        <div class="fg"><label>Industry</label><select name="industry"><option value="">Select industry...</option><option>Beauty / Salon / Spa</option><option>Dental / Medical</option><option>Gym / Fitness / PT</option><option>Real Estate</option><option>Trades / Home Services</option><option>Restaurant / Café</option><option>Auto Services</option><option>Cleaning Services</option><option>Legal / Financial</option><option>Other</option></select></div>
+      </div>
+      <div class="fg"><label>Monthly Ad Budget</label><select name="budget"><option value="">Select range...</option><option>Under $500/mo</option><option>$500 – $1,500/mo</option><option>$1,500 – $3,000/mo</option><option>$3,000+/mo</option><option>Not sure yet</option></select></div>
+      <div class="fg"><label>Tell us about your business (optional)</label><textarea name="message" placeholder="What do you do, who are your ideal customers, and what are you hoping to achieve?"></textarea></div>
+      <button type="submit" class="f-submit">Send My Request →</button>
+      <p class="f-note">🔒 We respect your privacy. No spam, ever.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="ft">
+    <a href="#" class="fl"><div class="logo-rec"></div>JustHitRecord</a>
+    <nav class="fnav">
+      <a href="#how">How It Works</a>
+      <a href="#services">Services</a>
+      <a href="#founder">About Me</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="fb">
+    <p>© 2026 just-hit-record.com. All rights reserved.</p>
+    <p>Video Editing · Facebook Ads · Lead Generation · Worldwide</p>
+  </div>
+</footer>
+
+<script>
+// CURSOR (desktop only)
+if(window.matchMedia('(hover:hover)').matches){
+  const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+  cur.style.display='block';ring.style.display='block';
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+}
+
+// NAV SCROLL
+const nb=document.getElementById('navbar');
+window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',scrollY>60));
+
+// HAMBURGER
+const ham=document.getElementById('ham'),mn=document.getElementById('mobileNav'),ov=document.getElementById('overlay'),cn=document.getElementById('closeNav');
+const openM=()=>{mn.classList.add('open');ov.classList.add('open');}
+const closeM=()=>{mn.classList.remove('open');ov.classList.remove('open');}
+ham.addEventListener('click',openM);cn.addEventListener('click',closeM);ov.addEventListener('click',closeM);
+mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeM));
+
+// FAQ
+document.querySelectorAll('.fi').forEach(item=>{
+  item.querySelector('.fq').addEventListener('click',()=>{
+    const o=item.classList.contains('open');
+    document.querySelectorAll('.fi').forEach(i=>i.classList.remove('open'));
+    if(!o)item.classList.add('open');
+  });
+});
+
+// SCROLL REVEAL
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
